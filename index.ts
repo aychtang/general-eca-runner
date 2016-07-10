@@ -1,20 +1,21 @@
 
 type State = number[] | string[];
+interface Outcomes { [x : string] : string; };
 
-function padL (l : number, s : string) : string
+function padLeft (l : number, s : string, t : string) : string
 {
   while (s.length < l)
-    s = "0" + s;
+    s = t + s;
 
   return s;
 }
 
 function binaryFromRule (i : number) : string
 {
-  return padL(8, i.toString(2));
+  return padLeft(8, i.toString(2), "0");
 }
 
-function outcomes (r : string) : any
+function outcomes (r : string) : Outcomes
 {
   return { "111" : r[0]
          , "110" : r[1]
@@ -27,13 +28,14 @@ function outcomes (r : string) : any
          };
 }
 
-function survival (st : State, i : number, r : string) : number
+function survival (st : State, i : number, r : string) : string
 {
   var pattern = "" + (st[i - 1] || 0) + st[i] + (st[i + 1] || 0);
-  return +outcomes(r)[pattern];
+
+  return outcomes(r)[pattern];
 }
 
-function compute (st : State, r : number) : number[]
+function compute (st : State, r : number) : State
 {
   var newState = [];
 
