@@ -28,9 +28,8 @@ function outcomes (r)
 function survival (st, i, r)
 {
   var pattern = "" + (st[i - 1] || 0) + st[i] + (st[i + 1] || 0);
-  var outcome = outcomes(r);
 
-  return outcome[pattern];
+  return outcomes(r)[pattern];
 }
 
 function compute (st, r)
