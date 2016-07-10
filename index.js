@@ -28,7 +28,7 @@ function outcomes (r)
 function survival (st, i, r)
 {
   var pattern = "" + (st[i - 1] || 0) + st[i] + (st[i + 1] || 0);
-  var outcome = outcomes(rule);
+  var outcome = outcomes(r);
 
   return outcome[pattern];
 }
@@ -38,7 +38,7 @@ function compute (st, r)
   var newState = [];
 
   for (var i = 0; i < st.length; i++)
-    newState[i] = survival(st, i, binaryFromRule(rule));
+    newState[i] = survival(st, i, binaryFromRule(r));
 
   return newState;
 }
