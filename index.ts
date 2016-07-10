@@ -28,19 +28,18 @@ function outcomes (r : string) : Outcomes
          };
 }
 
-function survival (st : State, i : number, r : string) : string
+function pattern (st : State, i : number) : string
 {
-  var pattern = "" + (st[i - 1] || 0) + st[i] + (st[i + 1] || 0);
-
-  return outcomes(r)[pattern];
+  return "" + (st[i - 1] || 0) + st[i] + (st[i + 1] || 0);
 }
 
 function compute (st : State, r : number) : State
 {
+  var outcome  = outcomes(binaryFromRule(r));
   var newState = [];
 
   for (var i = 0; i < st.length; i++)
-    newState[i] = survival(st, i, binaryFromRule(r));
+    newState[i] = outcome[pattern(st, i)];
 
   return newState;
 }
